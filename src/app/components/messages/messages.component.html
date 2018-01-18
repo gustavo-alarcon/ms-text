@@ -1,0 +1,69 @@
+<mat-card>
+    <mat-card-header>
+        <h2>Programacion de mensajes</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <section>
+            <div class="input">
+                <mat-form-field>
+                    <mat-icon matPrefix>filter_list</mat-icon>
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+                </mat-form-field>
+                <mat-checkbox class="select" (change)="changeAll($event)" [(ngModel)]="all">Seleccionar todos</mat-checkbox>
+                <mat-checkbox class="select" (change)="changeFranchise($event)" [(ngModel)]="fran">Clientes Franquicia</mat-checkbox>
+                <mat-checkbox class="select" (change)="changeProm($event)" [(ngModel)]="prom">Clientes Promocion</mat-checkbox>
+                <button mat-raised-button color="primary" (click)="openDialog(0)">Programar seleccionados</button>
+                <button mat-raised-button color="primary" (click)="openClient()">Agregar Clientes</button>
+            </div>
+            <div class="loading" *ngIf="isLoadingResults">
+                <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+            </div>
+            <mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Name}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="mail">
+                    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Mail}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="phone">
+                    <mat-header-cell *matHeaderCellDef>Telefono</mat-header-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Phone}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="place">
+                    <mat-header-cell *matHeaderCellDef>Lugar</mat-header-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Place}}</mat-cell>
+                </ng-container> 
+                <ng-container matColumnDef="birthday">
+                    <mat-header-cell *matHeaderCellDef>Fecha de nacimiento</mat-header-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Birthday}}</mat-cell>
+                </ng-container>   
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)" class="type"><span *ngIf="cliente.Type=='1'">Franquicia</span><span *ngIf="cliente.Type=='2'">Promociones</span></mat-cell>
+                </ng-container>   
+                <ng-container matColumnDef="seleccionar">
+                    <mat-header-cell *matHeaderCellDef>Seleccionar</mat-header-cell>
+                    <mat-cell *matCellDef="let cliente; let i=index"><mat-checkbox [(ngModel)]="cliente.select" (change)="confirmAll($event,cliente.Type)">Seleccionar</mat-checkbox></mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row matTooltip="Haga click para personalizar un mensaje" matTooltipPosition="above" *matRowDef="let cliente; columns: displayedColumns;" ></mat-row>        
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[5,10]"></mat-paginator>
+        </section>
+    </mat-card-content>
+</mat-card>
+
+<mat-card>
+    <mat-card-header>
+        <h2>Uso de la cuenta</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <section class="stats">
+                <h1><span class="red">1</span><h4 class="description">Cantidad de mensajes restantes ( Credito )</h4></h1>
+                <h1><span class="green">1</span><h4 class="description">Cantidad de mensajes programados para mandar</h4></h1>
+                <h1><span class="pink">1</span><h4 class="description">Cantidad de mensajes enviados</h4></h1>  
+        </section>      
+    </mat-card-content>
+</mat-card>

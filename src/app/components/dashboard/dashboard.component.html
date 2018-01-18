@@ -1,0 +1,30 @@
+<div class="example-container">
+    <mat-toolbar color="primary" class="example-toolbar">
+      <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+      <h1 class="example-app-name">Sistema de Mensajes</h1>
+    </mat-toolbar>
+    <mat-sidenav-container class="example-sidenav-container">
+      <mat-sidenav fixedInViewport #snav mode="push" fixedTopGap="50">
+        <mat-nav-list>
+          <mat-list-item (click)="changePage(1)">
+            <mat-icon>message</mat-icon> 
+            <a class="spacer">Mensajes</a>
+          </mat-list-item>
+          <mat-list-item (click)="changePage(2)">
+            <mat-icon>build</mat-icon>
+            <a class="spacer">Contáctenos</a>
+          </mat-list-item>
+          <mat-list-item routerLink="">
+            <mat-icon>power_settings_new</mat-icon>
+            <a class="spacer" (click)="logout()">Cerrar sesion</a>
+          </mat-list-item>  
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content class="limit">
+        <div class="container">
+          <section *ngIf="toogle=='1'"><messages ></messages></section>
+          <section *ngIf="toogle=='2'"><configuration ></configuration></section>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
