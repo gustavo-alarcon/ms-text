@@ -38,7 +38,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthLoginGuard } from './guards/auth-login.guard';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddClientComponent } from './components/add-client/add-client.component';
- 
+import { HashLocationStrategy, LocationStrategy } from "@angular/common"; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +84,10 @@ import { AddClientComponent } from './components/add-client/add-client.component
        path:"dashboard",
        canActivate: [AuthGuard],
        component:DashboardComponent
+     },
+     {
+       path:"**",
+       component: LoginComponent
      }
     ]),
     ToastrModule.forRoot(), // ToastrModule added
@@ -98,6 +103,7 @@ import { AddClientComponent } from './components/add-client/add-client.component
     AuthService,
     AuthGuard,
     AuthLoginGuard,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })
