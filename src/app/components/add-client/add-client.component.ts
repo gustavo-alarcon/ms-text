@@ -7,6 +7,7 @@ import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-mome
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
 import * as _rollupMoment from 'moment';
+import * as crypto from 'crypto-js';
 import { Validators, FormGroup, FormBuilder, FormControl, EmailValidator } from '@angular/forms';
 const moment = _rollupMoment || _moment;
 
@@ -39,7 +40,7 @@ export class AddClientComponent implements OnInit {
   isLoadingResults:boolean=false;
   clientForm:FormGroup;
   minDate = new Date();
-  db = JSON.parse(localStorage.getItem('db'));
+  db = crypto.AES.decrypt(JSON.parse(localStorage.getItem('db')),'meraki').toString(crypto.enc.Utf8);
   date = new FormControl(moment().format('YYYY-MM-DD'));
   client= {
     date :'' ,

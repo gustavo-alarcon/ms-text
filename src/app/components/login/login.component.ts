@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { ViewContainerRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import * as crypto from 'crypto-js';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   loginAuth: boolean;
   loginSend: boolean = false;
   loading: boolean = false;
-
+  db:string;
+  name:string;
 
   client =[{
     uname:'',
@@ -50,8 +52,12 @@ export class LoginComponent implements OnInit {
           this.loading=false;
         }
        else{
-        localStorage.setItem("db",JSON.stringify(data.records[0].Db));
-        localStorage.setItem("user",JSON.stringify(this.client[0].uname));
+         this.db = crypto.AES.encrypt(JSON.stringify(data.records[0].Db),'meraki');
+         console.log(this.db);
+         this.name = crypto.AES.encrypt(JSON.stringify(this.client[0].uname), 'meraki');
+         console.log(this.name);
+        localStorage.setItem("db",this.db.toString());
+        localStorage.setItem("user",this.name.toString());
         localStorage.setItem('page','1');
         this.loading=false;
         this.router.navigate(['dashboard']);

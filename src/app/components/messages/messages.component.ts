@@ -5,6 +5,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { InputModalComponent } from '../input-modal/input-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { AddClientComponent } from '../add-client/add-client.component';
+import * as crypto from 'crypto-js';
 
 @Component({
   selector: 'messages',
@@ -20,6 +21,8 @@ export class MessagesComponent implements OnInit{
   displayedColumns=['name','mail','phone','place','birthday','type','seleccionar'];
   dataSource: MatTableDataSource<any>; 
   isLoadingResults = false;
+  bytes = crypto.AES.decrypt(localStorage.getItem('db'),'meraki');
+  bd = this.bytes.toString(crypto.enc.Utf8);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
@@ -41,7 +44,7 @@ export class MessagesComponent implements OnInit{
 
   getClients(){
     this.isLoadingResults = true;
-    this.clientService.getBdClient(localStorage.getItem('db')).subscribe(data=>{
+    this.clientService.getBdClient(this.bd).subscribe(data=>{
       this.clientsSales = data.records;
       for(let i=0;i<data.length;i++){
         this.clientsSales.push({
