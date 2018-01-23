@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logout(){
+    localStorage.removeItem('web');
     localStorage.removeItem('db');
     localStorage.removeItem('user');
     localStorage.removeItem('page');

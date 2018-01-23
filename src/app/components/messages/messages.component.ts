@@ -70,7 +70,7 @@ export class MessagesComponent implements OnInit{
     this.dataSource.filter = filterValue;
   }
 
-  openDialog(phone): void {
+  openDialog(client): void {
     let min=false;
     for(let i=0;i<this.clientsSales.length;i++){
       if(this.clientsSales[i].select==true){
@@ -78,7 +78,7 @@ export class MessagesComponent implements OnInit{
         break;
       }
     }
-    if(min==true || phone!=0){
+    if(min==true){
       let datos=[];
       if(this.all==true){
         for(let i=0;i<this.clientsSales.length;i++){
@@ -110,7 +110,26 @@ export class MessagesComponent implements OnInit{
       });
     }
     else{
+      if(client!=0){
+        let datos=[];
+        datos.push({
+          "name": client.Name,
+          "phone":  client.Phone
+        });
+        let dialogRef = this.dialog.open(InputModalComponent, {
+          width: '500px',
+          data: datos
+        });
+        
+        dialogRef.afterClosed().subscribe(result => {
+          if(result){
+            this.toastr.success("Se programaron los mensajes para la fecha indicada","Exito");
+          }
+        });
+      }
+      else{
       this.toastr.warning('Por lo menos seleccione un cliente para empezar a programar los mensajes','Seleccione uno');
+      }
     }
   }
 

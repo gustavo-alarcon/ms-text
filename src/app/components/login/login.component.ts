@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   loading: boolean = false;
   db:string;
   name:string;
+  web:string;
 
   client =[{
     uname:'',
@@ -52,10 +53,10 @@ export class LoginComponent implements OnInit {
           this.loading=false;
         }
        else{
+         this.web = crypto.AES.encrypt(JSON.stringify(data.records[0].Web),'meraki');
          this.db = crypto.AES.encrypt(JSON.stringify(data.records[0].Db),'meraki');
-         console.log(this.db);
          this.name = crypto.AES.encrypt(JSON.stringify(this.client[0].uname), 'meraki');
-         console.log(this.name);
+        localStorage.setItem("web",this.web.toString());
         localStorage.setItem("db",this.db.toString());
         localStorage.setItem("user",this.name.toString());
         localStorage.setItem('page','1');

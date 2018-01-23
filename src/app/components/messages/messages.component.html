@@ -21,27 +21,27 @@
             <mat-table [dataSource]="dataSource">
                 <ng-container matColumnDef="name">
                     <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
-                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Name}}</mat-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente)">{{cliente.Name}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="mail">
                     <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
-                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Mail}}</mat-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente)">{{cliente.Mail}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="phone">
                     <mat-header-cell *matHeaderCellDef>Telefono</mat-header-cell>
-                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Phone}}</mat-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente)">{{cliente.Phone}}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="place">
                     <mat-header-cell *matHeaderCellDef>Lugar</mat-header-cell>
-                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Place}}</mat-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente)">{{cliente.Place}}</mat-cell>
                 </ng-container> 
                 <ng-container matColumnDef="birthday">
                     <mat-header-cell *matHeaderCellDef>Fecha de nacimiento</mat-header-cell>
-                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)">{{cliente.Birthday}}</mat-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente)">{{cliente.Birthday}}</mat-cell>
                 </ng-container>   
                 <ng-container matColumnDef="type">
                     <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
-                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente.Phone)" class="type"><span *ngIf="cliente.Type=='1'">Franquicia</span><span *ngIf="cliente.Type=='2'">Promociones</span></mat-cell>
+                    <mat-cell *matCellDef="let cliente" (click)="openDialog(cliente)" class="type"><span *ngIf="cliente.Type=='1'">Franquicia</span><span *ngIf="cliente.Type=='2'">Promociones</span></mat-cell>
                 </ng-container>   
                 <ng-container matColumnDef="seleccionar">
                     <mat-header-cell *matHeaderCellDef>Seleccionar</mat-header-cell>
