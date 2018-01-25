@@ -38,8 +38,7 @@ export const MY_FORMATS = {
   ],
 })
 export class InputModalComponent implements OnInit {
-  webBytes = crypto.AES.decrypt(localStorage.getItem('web'),'meraki')
-  web = this.webBytes.toString(crypto.enc.Utf8);
+
   isLoadingResults: boolean = false;
   date = new FormControl(moment().format('YYYY-MM-DD'))
   horas:number[]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24];
@@ -51,6 +50,8 @@ export class InputModalComponent implements OnInit {
     customers:null,
     web: ''
   };
+  webBytes = crypto.AES.decrypt(localStorage.getItem('web'),'meraki')
+  web = this.webBytes.toString(crypto.enc.Utf8);
 
   constructor(
     public dialogRef: MatDialogRef<InputModalComponent>,
@@ -58,6 +59,7 @@ export class InputModalComponent implements OnInit {
     public messageService:MessagesService,
     private toastr: ToastrService
   ) {
+    
     this.completeData.customers=data;
    }
 
@@ -69,7 +71,7 @@ export class InputModalComponent implements OnInit {
   }
 
   sendMessages(){
-    this.completeData.web=this.web;
+    this.completeData.web=JSON.parse(this.web);
     this.isLoadingResults=true;
     let hour = new Date().getHours();
     let min = new Date().getMinutes();
@@ -93,7 +95,7 @@ export class InputModalComponent implements OnInit {
           this.isLoadingResults=false;
         }
         else{
-          this.completeData.time =  String(this.completeData.time) + ":00:00"
+          this.completeData.time =  String(this.completeData.time) + ":00:00";
           this.messageService.sendMessages(this.completeData).subscribe(data=>{
             this.completeData={
               message:"",

@@ -2,7 +2,7 @@
   <h1 mat-dialog-title>Ingrese los datos del nuevo cliente</h1>
   <hr>
   <form [formGroup]="clientForm">
-    <div class="loading" *ngIf="isLoadingResults">
+    <div class="loadingSpinner" *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
     <mat-form-field class="full-width">

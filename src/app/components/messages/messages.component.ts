@@ -57,7 +57,6 @@ export class MessagesComponent implements OnInit{
           Type: data.Type,
         });
       }
-      console.log(this.clientsSales);
       this.isLoadingResults = false;
       this.dataSource = new MatTableDataSource(this.clientsSales);  
       this.dataSource.paginator = this.paginator;
@@ -85,6 +84,7 @@ export class MessagesComponent implements OnInit{
           datos.push({
             "name":this.clientsSales[i].Name,
             "phone":this.clientsSales[i].Phone,
+            "type" : this.clientsSales[i].Type
           });
         }
       }
@@ -93,7 +93,8 @@ export class MessagesComponent implements OnInit{
           if(this.clientsSales[i].select==true){
             datos.push({
               "name":this.clientsSales[i].Name,
-              "phone": this.clientsSales[i].Phone
+              "phone": this.clientsSales[i].Phone,
+              "type" : this.clientsSales[i].Type
             });
           }
         }
@@ -114,7 +115,8 @@ export class MessagesComponent implements OnInit{
         let datos=[];
         datos.push({
           "name": client.Name,
-          "phone":  client.Phone
+          "phone":  client.Phone,
+          "type" : client.Type
         });
         let dialogRef = this.dialog.open(InputModalComponent, {
           width: '500px',
@@ -134,9 +136,7 @@ export class MessagesComponent implements OnInit{
   }
 
   changeAll(e){
-    console.log('entro');
     if(e.checked==true){
-      console.log('entro x2');
       for(let i=0;i<this.clientsSales.length;i++){
           this.clientsSales[i].select=true;
       }
@@ -146,7 +146,6 @@ export class MessagesComponent implements OnInit{
           this.clientsSales[i].select=false;
       }
     }
-    console.log(this.clientsSales);
   }
 
   confirmAll(e,type){

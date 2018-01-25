@@ -24,7 +24,7 @@ h1.example-app-name {
     font-family: 'Roboto', sans-serif;        
 }
 
-.loading {
+.loadingSpinner {
     position: absolute;
     top: 0;
     left: 0;
@@ -37,10 +37,12 @@ h1.example-app-name {
     justify-content: center;
 }
 
-.container-loading {
+.container-loadingSpinner {
     display: flex;
     flex-direction: column;
     max-height: 500px;
     min-width: 300px;
     position: relative;
   }
+
+  

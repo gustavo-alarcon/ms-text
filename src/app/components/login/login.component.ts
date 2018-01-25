@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
           this.loading=false;
         }
        else{
-         this.web = crypto.AES.encrypt(JSON.stringify(data.records[0].Web),'meraki');
+         this.web = crypto.AES.encrypt(JSON.stringify(data.records[0].Website),'meraki');
          this.db = crypto.AES.encrypt(JSON.stringify(data.records[0].Db),'meraki');
          this.name = crypto.AES.encrypt(JSON.stringify(this.client[0].uname), 'meraki');
         localStorage.setItem("web",this.web.toString());

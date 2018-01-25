@@ -4,6 +4,7 @@ import {URLSearchParams, Headers} from '@angular/http';
 import {  BaseRequestOptions, RequestOptions, RequestOptionsArgs} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as plivo from 'plivo';
+import * as crypto from 'crypto-js';
 
 @Injectable()
 export class MessagesService {
@@ -11,23 +12,11 @@ export class MessagesService {
     authId: 'MAYZKXNWE0ZWI1MTBKOG',
     authToken: 'MjY1YmEzMGQ5NWQ5ZDhhYjk4YmZjOGE3NDlkMmVi'
   };
-  constructor(public http: HttpClient) { }
 
-  sendMessage(text,phone){
-    let headers = new HttpHeaders({
-      'Authorization': 'Basic '+btoa(this.p.authId+':'+this.p.authToken),
-      'Content-Type':'application/json',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE, PUT',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding"
-  });
-    let params = {
-      "src":"+51555",
-      "dst" : "+51"+phone,
-      "text" : text
-    }    
-    return this.http.post('https://cors-anywhere.herokuapp.com/https://api.plivo.com/v1/Account/MAYZKXNWE0ZWI1MTBKOG/Message/',JSON.stringify(params),{headers:headers});
-  }
+  bytes = crypto.AES.decrypt(localStorage.getItem('db'),'meraki');
+  bd = this.bytes.toString(crypto.enc.Utf8);
+
+  constructor(public http: HttpClient) { }
 
   addClient(client,db){
     let headers = new HttpHeaders({
@@ -48,7 +37,7 @@ export class MessagesService {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding",
   });
-    return this.http.post('http://www.meraki-s.com/rent/ms-synergy/php/handler-addToCrono.php?db='+JSON.parse(localStorage.getItem('db')),JSON.stringify(messages));
+    return this.http.post('http://www.meraki-s.com/rent/ms-synergy/php/handler-addToCrono.php?db='+JSON.parse(this.bd),JSON.stringify(messages));
   }
 
 

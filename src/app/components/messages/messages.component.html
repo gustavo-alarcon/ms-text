@@ -15,7 +15,7 @@
                 <button mat-raised-button color="primary" (click)="openDialog(0)">Programar seleccionados</button>
                 <button mat-raised-button color="primary" (click)="openClient()">Agregar Clientes</button>
             </div>
-            <div class="loading" *ngIf="isLoadingResults">
+            <div class="loadingSpinner" *ngIf="isLoadingResults">
                 <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
             </div>
             <mat-table [dataSource]="dataSource">
