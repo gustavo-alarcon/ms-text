@@ -22,6 +22,7 @@ export class MessagesComponent implements OnInit{
   displayedColumns=['name','mail','phone','place','birthday','type','seleccionar'];
   dataSource: MatTableDataSource<any>; 
   isLoadingResults = false;
+  isLoadingBubbles = false;
   bytes = crypto.AES.decrypt(localStorage.getItem('db'),'meraki');
   bd = this.bytes.toString(crypto.enc.Utf8);
   send : string='';
@@ -72,11 +73,13 @@ export class MessagesComponent implements OnInit{
   }
 
   getBubbleValues(){
+    this.isLoadingBubbles = true;
     this.messageService.getBubbleValues().subscribe(data=>{
       console.log(data);
       this.balance = data.records[0].Saldo;
       this.programmed = data.records[0].Programados;
       this.send = data.records[0].Enviados;
+      this.isLoadingBubbles = false;
     });
   }
 
@@ -143,6 +146,7 @@ export class MessagesComponent implements OnInit{
         dialogRef.afterClosed().subscribe(result => {
           if(result){
             this.toastr.success("Se programaron los mensajes para la fecha indicada","Exito");
+            this.getBubbleValues();
           }
         });
       }

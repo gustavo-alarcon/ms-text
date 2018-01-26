@@ -40,7 +40,8 @@ export class AddClientComponent implements OnInit {
   isLoadingResults:boolean=false;
   clientForm:FormGroup;
   minDate = new Date();
-  db = crypto.AES.decrypt(JSON.parse(localStorage.getItem('db')),'meraki').toString(crypto.enc.Utf8);
+  bytes = crypto.AES.decrypt(localStorage.getItem('db'),'meraki');
+  db = this.bytes.toString(crypto.enc.Utf8);
   date = new FormControl(moment().format('YYYY-MM-DD'));
   client= {
     date :'' ,
@@ -59,7 +60,7 @@ export class AddClientComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) { 
     this.clientForm = this.formBuilder.group({
-      'name': [null,Validators.compose([Validators.required,Validators.pattern('^[a-zA-Z\\s]+$')])],
+      'name': [null,Validators.compose([Validators.required,Validators.pattern('^[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]+$')])],
       'mail': [null,Validators.compose([Validators.required, Validators.email])],
       'phone': [null,Validators.compose([Validators.required,Validators.pattern('^[0-9]+$'),Validators.minLength(6)])],
       'place': [null,Validators.compose([Validators.required])],
@@ -83,7 +84,7 @@ export class AddClientComponent implements OnInit {
     }
     else{
       this.client.date = moment(this.date.value).format('YYYY-MM-DD');
-      this.messageService.addClient(this.client,this.db).subscribe(data => {
+      this.messageService.addClient(this.client,JSON.parse(this.db)).subscribe(data => {
         this.toastr.success('Se agrego al cliente','Exito');
         this.client= {
           date :'' ,

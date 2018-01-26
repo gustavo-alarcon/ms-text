@@ -63,6 +63,9 @@
         </button>
     </mat-card-header>
     <mat-card-content>
+        <div class="loadingSpinner" *ngIf="isLoadingBubbles">
+            <mat-spinner *ngIf="isLoadingBubbles"></mat-spinner>
+        </div>
         <section class="stats">
             <div class="bubbleContainer">
                 <div class="bubble red">
