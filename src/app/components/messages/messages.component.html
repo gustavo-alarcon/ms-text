@@ -1,10 +1,10 @@
 <mat-card>
-    <mat-card-header>
+    <mat-card-header class="button-row">
         <h2>Programacion de mensajes</h2>
     </mat-card-header>
     <mat-card-content>
         <section>
-            <div class="input">
+            <div class="input button-row">
                 <mat-form-field>
                     <mat-icon matPrefix>filter_list</mat-icon>
                     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
@@ -56,14 +56,32 @@
 </mat-card>
 
 <mat-card>
-    <mat-card-header>
+    <mat-card-header class="button-row">
         <h2>Uso de la cuenta</h2>
+        <button mat-icon-button>
+            <mat-icon class="reload" (click)="getBubbleValues()">autorenew</mat-icon>
+        </button>
     </mat-card-header>
     <mat-card-content>
         <section class="stats">
-                <h1><span class="red">1</span><h4 class="description">Cantidad de mensajes restantes ( Credito )</h4></h1>
-                <h1><span class="green">1</span><h4 class="description">Cantidad de mensajes programados para mandar</h4></h1>
-                <h1><span class="pink">1</span><h4 class="description">Cantidad de mensajes enviados</h4></h1>  
+            <div class="bubbleContainer">
+                <div class="bubble red">
+                    <span class="bubbleText">{{balance}}</span>
+                </div>
+                <h4 class="description">Cantidad de mensajes restantes <br/>( Saldo )</h4>
+            </div>
+            <div class="bubbleContainer">
+                <div class="bubble green">
+                    <span class="bubbleText">{{programmed}}</span>
+                </div>
+                <h4 class="description">Cantidad de mensajes programados para mandar</h4>
+            </div>
+            <div class="bubbleContainer">
+                <div class="bubble blue">
+                    <span class="bubbleText">{{send}}</span>
+                </div>
+                <h4 class="description">Cantidad de mensajes enviados</h4>
+            </div>
         </section>      
     </mat-card-content>
 </mat-card>

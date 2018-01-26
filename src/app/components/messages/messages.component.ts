@@ -5,6 +5,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { InputModalComponent } from '../input-modal/input-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { AddClientComponent } from '../add-client/add-client.component';
+import { MessagesService } from '../../services/messages.service'
 import * as crypto from 'crypto-js';
 
 @Component({
@@ -23,6 +24,10 @@ export class MessagesComponent implements OnInit{
   isLoadingResults = false;
   bytes = crypto.AES.decrypt(localStorage.getItem('db'),'meraki');
   bd = this.bytes.toString(crypto.enc.Utf8);
+  send : string='';
+  programmed : string = '';
+  balance : string = '';
+ 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   
@@ -30,8 +35,11 @@ export class MessagesComponent implements OnInit{
     private clientService:ClientsService,
     public dialog: MatDialog,
     private toastr: ToastrService,
+    private messageService : MessagesService,
   ) {  
+    
       this.getClients();
+      this.getBubbleValues();
   }
 
   ngOnInit() {
@@ -60,6 +68,15 @@ export class MessagesComponent implements OnInit{
       this.isLoadingResults = false;
       this.dataSource = new MatTableDataSource(this.clientsSales);  
       this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  getBubbleValues(){
+    this.messageService.getBubbleValues().subscribe(data=>{
+      console.log(data);
+      this.balance = data.records[0].Saldo;
+      this.programmed = data.records[0].Programados;
+      this.send = data.records[0].Enviados;
     });
   }
 
